@@ -12,12 +12,55 @@
 
     <!-- AR Marker -->
     <a-marker preset="hiro">
+      <!-- AR Sound Entity -->
+      <a-entity id="soundEntity" position="0 0 0" sound="src: #sound" visible="false"></a-entity>
+
       <!-- AR Entity (3D Cube) -->
-      <a-box position="0 0.5 0" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-box position="0 0.5 0" rotation="0 45 0" color="#4CC3D9" soundhandler></a-box>
     </a-marker>
 
     <!-- Handle AR tracking events -->
     <a-entity arjs-anchor></a-entity>
   </a-scene>
+
+  <!-- Sound Asset -->
+  <audio id="sound" src="TestMP3.mp3"></audio>
+
+  <!-- Script to handle sound based on user location -->
+  <script>
+    AFRAME.registerComponent('soundhandler', {
+      init: function () {
+        this.el.addEventListener('arjs-video-loaded', () => {
+          // Function to update sound based on user's distance to the cube
+          this.updateSound();
+
+          // Show the sound entity
+          document.querySelector('#soundEntity').setAttribute('visible', true);
+        });
+      },
+
+      tick: function () {
+        // Update sound continuously based on user's distance to the cube
+        this.updateSound();
+      },
+
+      updateSound: function () {
+        // Get position of the camera
+        const cameraPosition = document.querySelector('[camera]').getAttribute('position');
+
+        // Get position of the cube
+        const cubePosition = this.el.getAttribute('position');
+
+        // Calculate distance between camera and cube
+        const distance = AFRAME.utils.coordinates.distance(cubePosition, cameraPosition);
+
+        // Adjust sound volume based on distance
+        const volume = 1 / (distance + 1); // Adjust as needed
+
+        // Set sound volume
+        document.querySelector('#sound').volume = volume;
+      }
+    });
+  </script>
 </body>
 </html>
