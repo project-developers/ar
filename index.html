@@ -14,47 +14,23 @@
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
+      <!-- Element on User's Current Location -->
       <a-text
-        value="This content will always face you."
+        value="User's Current Location"
         look-at="[gps-camera]"
         scale="120 120 120"
-        gps-entity-place="latitude: 8.464968; longitude: -13.273194;"
+        gps-entity-place="latitude: 8.464968; longitude: -13.273194; altitude: 0;"
       ></a-text>
 
-      <!-- Text 1 -->
+      <!-- Element 1 Meter to the Right -->
       <a-text
-        value="Text 1 at Location 1"
+        value="1 Meter to the Right"
         look-at="[gps-camera]"
         scale="120 120 120"
-        gps-entity-place="latitude: 8.46494; longitude: -13.2735;"
-        color="black"
-        event-set__1="_event: click; material.color: red"
+        gps-entity-place="latitude: 8.464968; longitude: -13.273203; altitude: 0;"
       ></a-text>
 
-      <!-- Text 2 -->
-      <a-text
-        value="Text 2 at Location 2"
-        look-at="[gps-camera]"
-        scale="120 120 120"
-        gps-entity-place="latitude: 8.46492; longitude: -13.2733;"
-        color="black"
-        event-set__2="_event: click; material.color: blue"
-      ></a-text>
-
-      <!-- Text 3 -->
-      <a-text
-        value="Text 3 at Location 3"
-        look-at="[gps-camera]"
-        scale="120 120 120"
-        gps-entity-place="latitude: 8.46490; longitude: -13.2731;"
-        color="black"
-        event-set__3="_event: click; material.color: green"
-      ></a-text>
-
-      <!-- Cursor for interaction -->
-      <a-cursor></a-cursor>
-      
-      <a-camera gps-camera rotation-reader> </a-camera>
+      <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
   </body>
 </html>
