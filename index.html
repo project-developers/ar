@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeoAR.js demo</title>
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.3.1/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-  <a-scene
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-    >
-    <!-- AR Camera -->
-    <a-marker-camera preset="hiro"></a-marker-camera>
+    <a-scene embedded arjs="sourceType: webcam;">
+        <a-box id="myBox" position="0 0.5 0" material="color: red;"></a-box>
+    </a-scene>
 
-    <!-- AR Entities (Multiple Objects) -->
-    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-    <a-cone position="-2 0.75 -5" radius-bottom="0.5" radius-top="0.1" height="1.5" color="#7BC8A4"></a-cone>
-    <a-torus position="2 1 -4" radius="0.4" radius-tubular="0.1" color="#FFA07A"></a-torus>
-  </a-scene>
+    <script>
+        // Access the A-Frame scene and the box entity
+        var scene = document.querySelector('a-scene');
+        var box = document.querySelector('#myBox');
+
+        // Add a click event to change the box color on tap
+        box.addEventListener('click', function () {
+            var newColor = getRandomColor();
+            box.setAttribute('material', 'color', newColor);
+        });
+
+        // Function to generate a random color
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
 </body>
 </html>
