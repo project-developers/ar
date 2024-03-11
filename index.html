@@ -1,38 +1,55 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>MDN Games: A-Frame demo</title>
-  <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS-based AR Example</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-  <a-scene>
-    <a-sky color="#DDDDDD"></a-sky>
-    <a-light type="directional" color="#FFF" intensity="0.5" position="-1 1 2"></a-light>
-    <a-light type="ambient" color="#FFF"></a-light>
-    <a-camera position="0 1 4" cursor-visible="true" cursor-scale="2" cursor-color="#0095DD" cursor-opacity="0.5"></a-camera>
-    <a-cube color="#0095DD" rotation="20 40 0" position="0 1 0">
-      <a-animation attribute="rotation" from="20 0 0" to="20 360 0" direction="alternate" dur="4000" repeat="indefinite" easing="ease"></a-animation>
-    </a-cube>
-    <a-entity geometry="primitive: torus; radius: 1; radiusTubular: 0.1; segmentsTubular: 12;" material="color: #EAEFF2; roughness: 0.1; metalness: 0.5;" rotation="10 0 0" position="-3 1 0">
-    <a-animation attribute="scale" to="1 0.5 1" direction="alternate" dur="2000" repeat="indefinite" easing="linear"></a-animation>
+
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+
+    <!-- Use the user's geolocation to position the AR content -->
+    <a-entity gps-entity-place="latitude: 37.7749; longitude: -122.4194;">
+      <!-- Add an audio source to the nearby location -->
+      <a-entity position="0 0 0">
+        <a-sound src="TestMP3.mp3" autoplay="true" loop="true" volume="1"></a-sound>
+      </a-entity>
+
+      <!-- Add a video to the marker location -->
+      <a-entity position="0 0.2 0">
+        <a-video src="myVideo.mp4" width="2" height="1.5" autoplay="true" loop="true"></a-video>
+      </a-entity>
+
+      <!-- Add text to the marker location -->
+      <a-entity position="0 0.4 0">
+        <a-text value="Hello, AR!" color="black" align="center"></a-text>
+      </a-entity>
+
+      <!-- Add a box shape at the marker location -->
+      <a-entity position="0 0.6 0">
+        <a-box color="red" depth="0.1" height="0.1" width="0.1"></a-box>
+      </a-entity>
     </a-entity>
+
+    <!-- Enable the camera for AR -->
+    <a-entity camera></a-entity>
   </a-scene>
+
   <script>
-    var scene = document.querySelector('a-scene');
-    var cylinder = document.createElement('a-cylinder');
-    cylinder.setAttribute('color', '#FF9500');
-    cylinder.setAttribute('height', '2');
-    cylinder.setAttribute('radius', '0.75');
-    cylinder.setAttribute('position', '3 1 0');
-    scene.appendChild(cylinder);
-    var t = 0;
-    function render() {
-      t += 0.01;
-      requestAnimationFrame(render);
-      cylinder.setAttribute('position', '3 '+(Math.sin(t*2)+1)+' 0');
-    }
-    render();
+    // Request user's geolocation permission
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const gpsEntity = document.querySelector('[gps-entity-place]');
+        gpsEntity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+      },
+      error => console.error('Error getting geolocation:', error)
+    );
   </script>
+
 </body>
 </html>
