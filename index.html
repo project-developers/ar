@@ -3,42 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPS-based AR Example</title>
+  <title>AR.js Audio, Video, Shape, and Text Example</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
 
-  <a-scene
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-    >
-      <!-- Text 1 -->
-      <a-text
-        value="Text 1 at Location 1"
-        look-at="[gps-camera]"
-        scale="120 120 120"
-        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
-      ></a-text>
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
 
-      <!-- Text 2 -->
-      <a-text
-        value="Text 2 at Location 2"
-        look-at="[gps-camera]"
-        scale="120 120 120"
-        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
-      ></a-text>
-
-      <!-- Text 3 -->
-      <a-text
-        value="Text 3 at Location 3"
-        look-at="[gps-camera]"
-        scale="120 120 120"
-        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
-      ></a-text>
-
-    <!-- Use the user's geolocation to position the AR content -->
-    <a-entity gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;">
+    <!-- Add a marker to trigger AR experience -->
+    <a-marker preset="hiro">
       <!-- Add an audio source to the nearby location -->
       <a-entity position="0 0 0">
         <a-sound src="TestMP3.mp3" autoplay="true" loop="true" volume="1"></a-sound>
@@ -58,25 +32,11 @@
       <a-entity position="0 0.6 0">
         <a-box color="red" depth="0.1" height="0.1" width="0.1"></a-box>
       </a-entity>
-    </a-entity>
+    </a-marker>
 
     <!-- Enable the camera for AR -->
-    <a-camera gps-camera rotation-reader></a-camera>
+    <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-    // Request user's geolocation permission
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        const gpsEntity = document.querySelector('[gps-entity-place]');
-        alert(`latitude: ${latitude}; longitude: ${longitude};`)
-        gpsEntity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-      },
-      error => console.error('Error getting geolocation:', error)
-    );
-  </script>
 
 </body>
 </html>
