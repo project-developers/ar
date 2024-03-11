@@ -9,7 +9,33 @@
 </head>
 <body>
 
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+    >
+      <!-- Text 1 -->
+      <a-text
+        value="Text 1 at Location 1"
+        look-at="[gps-camera]"
+        scale="120 120 120"
+        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
+      ></a-text>
+
+      <!-- Text 2 -->
+      <a-text
+        value="Text 2 at Location 2"
+        look-at="[gps-camera]"
+        scale="120 120 120"
+        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
+      ></a-text>
+
+      <!-- Text 3 -->
+      <a-text
+        value="Text 3 at Location 3"
+        look-at="[gps-camera]"
+        scale="120 120 120"
+        gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;"
+      ></a-text>
 
     <!-- Use the user's geolocation to position the AR content -->
     <a-entity gps-entity-place="latitude: 8.46458195; longitude: -13.27301604;">
@@ -35,7 +61,7 @@
     </a-entity>
 
     <!-- Enable the camera for AR -->
-    <a-entity camera></a-entity>
+    <a-camera gps-camera rotation-reader></a-camera>
   </a-scene>
 
   <script>
