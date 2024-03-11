@@ -45,6 +45,7 @@
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const gpsEntity = document.querySelector('[gps-entity-place]');
+        alert(`latitude: ${latitude}; longitude: ${longitude};`)
         gpsEntity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
       },
       error => console.error('Error getting geolocation:', error)
