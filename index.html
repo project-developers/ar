@@ -3,47 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Cube</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        #container {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
-        canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-    </style>
+    <title>AR Text Overlay</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@latest"></script>
 </head>
 <body>
-    <div id="container"></div>
+    <a-scene embedded arjs>
+        <!-- Display camera feed -->
+        <a-entity camera></a-entity>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://raw.githack.com/jeromeetienne/AR.js/2.3.1/aframe/build/aframe-ar.js"></script>
-    <script>
-        AFRAME.registerComponent('spin', {
-            tick: function (time, timeDelta) {
-                this.el.object3D.rotation.y += 0.01 * timeDelta / 16;
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const scene = document.querySelector('a-scene');
-
-            // Add a cube to the AR scene
-            const cube = document.createElement('a-box');
-            cube.setAttribute('material', 'color: #FF0000');
-            cube.setAttribute('scale', '1 1 1');
-            cube.setAttribute('position', '0 0 -3'); // Adjust position as needed
-            cube.setAttribute('spin', ''); // Apply spinning animation
-            scene.appendChild(cube);
-        });
-    </script>
+        <!-- Add text at current location -->
+        <a-marker preset="hiro">
+            <a-text value="Your Text Here" position="0 0.5 0" color="black"></a-text>
+        </a-marker>
+    </a-scene>
 </body>
 </html>
