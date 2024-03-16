@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augmented Reality Sample</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.3.1/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs="sourceType: webcam;">
-        <a-box id="myBox" position="0 0.5 0" material="color: red;"></a-box>
+    <a-scene embedded arjs>
+        <!-- Add camera to display the user's camera feed -->
+        <a-camera-static />
+
+        <!-- Add a simple cube to display in the AR scene -->
+        <a-box
+            color="#4CC3D9"
+            scale="1 1 1"
+            position="0 0 -3"
+        ></a-box>
+
+        <!-- Add some lighting to make the cube visible -->
+        <a-light
+            type="ambient"
+            intensity="0.5"
+            color="#ffffff"
+        ></a-light>
+
+        <a-light
+            type="point"
+            intensity="0.5"
+            position="2 4 4"
+        ></a-light>
     </a-scene>
-
-    <script>
-        // Access the A-Frame scene and the box entity
-        var scene = document.querySelector('a-scene');
-        var box = document.querySelector('#myBox');
-
-        // Add a click event to change the box color on tap
-        box.addEventListener('click', function () {
-            var newColor = getRandomColor();
-            box.setAttribute('material', 'color', newColor);
-        });
-
-        // Function to generate a random color
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-    </script>
 </body>
 </html>
