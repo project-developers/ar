@@ -5,33 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR Cube</title>
     <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
         #container {
             width: 100%;
             height: 100vh;
             position: relative;
         }
-
-        #ar-video {
-            display: none; /* Hide the video element */
-        }
-
-        #overlay {
+        canvas {
             width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <video id="ar-video" autoplay></video>
-        <canvas id="overlay"></canvas>
-    </div>
+    <div id="container"></div>
 
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/2.3.1/aframe/build/aframe-ar.js"></script>
     <script>
         AFRAME.registerComponent('spin', {
             tick: function (time, timeDelta) {
@@ -40,17 +34,15 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize AR.js without marker
             const scene = document.querySelector('a-scene');
-            scene.setAttribute('embedded', ''); // Allows AR scene to be displayed without fullscreen AR
 
-            // Add a sphere (as an example) in the center of the scene
-            const sphere = document.createElement('a-sphere');
-            sphere.setAttribute('material', 'color: #FF0000');
-            sphere.setAttribute('radius', '0.5');
-            sphere.setAttribute('position', '0 0 -3'); // Adjust position as needed
-            sphere.setAttribute('spin', ''); // Apply spinning animation
-            scene.appendChild(sphere);
+            // Add a cube to the AR scene
+            const cube = document.createElement('a-box');
+            cube.setAttribute('material', 'color: #FF0000');
+            cube.setAttribute('scale', '1 1 1');
+            cube.setAttribute('position', '0 0 -3'); // Adjust position as needed
+            cube.setAttribute('spin', ''); // Apply spinning animation
+            scene.appendChild(cube);
         });
     </script>
 </body>
