@@ -225,8 +225,8 @@
 	</div>
       </div>
 
-      <!--a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; showStats: false; uiScanning: #example-scanning-overlay;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false"-->
-	 <a-scene gps-camera="minDistance: 10" gps-projected-camera-control>
+      <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; showStats: false; uiScanning: #example-scanning-overlay;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+	 <!--a-scene gps-camera="minDistance: 10" gps-projected-camera-control-->
         
 	<a-assets>
           <img id="card" src="card.png" />
@@ -250,8 +250,8 @@
         <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable">
         </a-camera>
 
-        <!--a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0"-->
-	<a-entity gps-entity-place="latitude: YOUR_LATITUDE; longitude: YOUR_LONGITUDE;">
+        <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
+	<!--a-entity gps-entity-place="latitude: YOUR_LATITUDE; longitude: YOUR_LONGITUDE;"-->
           <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
 
           <a-entity visible=false id="portfolio-panel" position="0 0 -0.01">
@@ -296,7 +296,7 @@
         </a-entity>
       </a-scene>
     </div>
-<script>
+<!--script>
 	var startCount = 0
         // Initialize the A-Frame scene
         document.querySelector('a-scene').addEventListener('loaded', function () {
@@ -317,6 +317,6 @@
                 console.log('Geolocation is not supported by this browser.');
             }
         });
-    </script>
+</script-->
   </body>
 </html>
